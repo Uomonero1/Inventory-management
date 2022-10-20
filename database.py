@@ -6,8 +6,9 @@ cursor.execute("DROP TABLE IF EXISTS Store")
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS Store(
         Name TEXT(30) PRIMARY KEY NOT NULL,
-        Department TEXT(20) NOT NULL,
-        Quantity INTEGER(5))
+        Quantity INTEGER(5) NOT NULL,
+        Department TEXT(20) NOT NULL
+        )
     """)
 connection.commit()
 connection.close()

@@ -2,12 +2,8 @@
 Management of a store inventory with Python and SQLite3
 """
 
-# TODO: esportazione su csv, excel di tutta o una parte del database
-# TODO: pubblicare su GitHub
-
 import sqlite3
 from classes import Connector
-import csv
 
 # connection to the database
 conn = sqlite3.connect("inventory.db")
