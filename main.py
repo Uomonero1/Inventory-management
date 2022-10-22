@@ -1,5 +1,5 @@
 """
-Management of a store inventory with Python and SQLite3
+Management of a warehouse inventory with Python and SQLite3
 """
 
 import sqlite3
