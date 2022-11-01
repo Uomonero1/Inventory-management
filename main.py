@@ -47,7 +47,7 @@ def menu():
             product.display()
 
         elif choice == 4: # DELETE
-            delete_name = input("Which object do you want to delete? ").strip().lower().replace(" ", "_")
+            delete_name = input("What product do you want to delete? ").strip().lower().replace(" ", "_")
             product = Connector(name=delete_name)
             product.delete()
 
