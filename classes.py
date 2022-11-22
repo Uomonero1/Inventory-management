@@ -12,9 +12,9 @@ class Connector:
         self.department = department
         self.search_word = search_word
 
-    # inserts the given product with quantities and department into the db
+    # inserts the given product with quantity and department into the db
     def insert(self):
-        # checks the db if the product already exists
+        # checks if the product already exists in the table
         self.cursor.execute("""
             SELECT Name
             FROM Store
@@ -25,13 +25,14 @@ class Connector:
         if result:
             print("There is already a product with that name in the table. Check the inventory.")
         else:
+            # if the product is not in the table
             self.cursor.execute("""
                 INSERT INTO Store (Name, Quantity, Department)
                 VALUES (?,?,?)
             """, (self.name, self.quantity, self.department))
             self.conn.commit()
 
-    # updates the quantity of a product
+    # updates the quantity of a product and its department
     def update(self):
         # checks if the product is in the db
         self.cursor.execute("""
@@ -42,6 +43,7 @@ class Connector:
         result = self.cursor.fetchone()
 
         if result:
+            # if the product exists in the table
             self.cursor.execute("""
                 UPDATE Store 
                 SET Quantity =?, Department=? 
@@ -51,7 +53,7 @@ class Connector:
         else:
             print("This product isn't in the table.")
         
-    # deletes a product from the db
+    # deletes a product from the table
     def delete(self):
         # checks if the product is in the db
         self.cursor.execute("""
@@ -61,6 +63,7 @@ class Connector:
         """, (self.name,))
         result = self.cursor.fetchone()
 
+        # if the product exists in the table
         if result:
             self.cursor.execute("""
                 DELETE FROM Store
@@ -70,7 +73,7 @@ class Connector:
         else:
             print("This product isn't in the table.")
 
-    # searches for a product in the db
+    # checks if the table is empty
     def search(self):
         self.cursor.execute("""
             SELECT *
@@ -79,6 +82,7 @@ class Connector:
         """, (self.search_word,))
         result = self.cursor.fetchone()
 
+        # if the table is not empty
         if result:
             print(pd.read_sql_query("""
             SELECT *
@@ -90,12 +94,13 @@ class Connector:
         else:
             print("This product doesn't exist.")
 
-    # displays the all inventory or a chosen part
+    # displays all the inventory or a particular department
     def display(self):
         # checks if the inventory is empty
         self.cursor.execute("SELECT * FROM Store")
         result_1 = self.cursor.fetchone()
         
+        # displays all the inventory
         if result_1:
             answer = input("Do you want to display all the products in the inventory?(y/n) ").strip().lower()
             if answer == "y":
@@ -107,7 +112,7 @@ class Connector:
                 self.cursor.execute("SELECT Department FROM Store WHERE Department=?", (selected_department,))
                 result = self.cursor.fetchone()
 
-                # displays product from the chosen department
+                # displays products from the chosen department
                 if result:
                     print(pd.read_sql_query("""
                     SELECT * 
@@ -128,6 +133,6 @@ class Connector:
         
         with open(file_name, "w", newline="") as f:
             writer = csv.writer(f, delimiter=",")
-            writer.writerow(["Name", "Department", "Quantity"])
+            writer.writerow(["Id", "Name", "Department", "Quantity"])
             for line in sequence:
                 writer.writerow(line)
