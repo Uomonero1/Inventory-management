@@ -123,7 +123,7 @@ class Connector:
                 else:
                     print("There is no such department in the table. Check your spelling.")
         else:
-            print("There is nothing in the table. Add something to display.")
+            print("There is nothing in the table. Add something first.")
     
     # exports the entire database to a csv file
     def export(self): 

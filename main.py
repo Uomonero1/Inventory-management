@@ -10,11 +10,11 @@ from database import create_table
 conn = sqlite3.connect("inventory.db")
 
 def menu():
-    choice = None
-    while choice != 7:
+    print("\nWelcome to the inventory management system")
+    while True:
         print("""
-        \n-------------------------------------------------------
-        \nWelcome to the inventory management system. Choose an option
+        ---------------------------------------------
+        \n  Choose an option:
         \n1 | Add a product
         \n2 | Update the quantity of a chosen product
         \n3 | Check the inventory
@@ -27,7 +27,7 @@ def menu():
         try:
             choice = int(input("What do you want to do? "))
         except ValueError:
-            print("Insert a number from 1 to 5.")
+            print("Insert a number from 1 to 7.")
 
         match choice:
             case 1: # INSERT
@@ -61,6 +61,9 @@ def menu():
             case 6: # EXPORT
                 product = Connector()
                 product.export()
+
+            case 7:
+                return False
 
 if __name__ == "__main__":
     create_table()
