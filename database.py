@@ -1,7 +1,7 @@
 import sqlite3
 
 def create_table():
-    connection = sqlite3.connect("inventory.db")
+    connection = sqlite3.connect(".\inventory.db")
     cursor = connection.cursor()
 
     cursor.execute("DROP TABLE IF EXISTS Store")
